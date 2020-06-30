@@ -1,10 +1,12 @@
 # SUPPRESSION DE LA BDD POUR EXECUTION A LA CHAINE
-import os
-os.remove("C:\\Users\\Utilisateur\\Documents\\Projets\\Prairie_Spotify_Gr2\\bddSpotify.db")
+import os, sys
+path = os.path.dirname(sys.argv[0])
+print("Le répertoire courant est : " + path)
+os.remove(path + "/bddSpotify.db")
 
-# CREATION DE LA BDD
+# # CREATION DE LA BDD
 import sqlite3
-bdd = sqlite3.connect("C:\\Users\\Utilisateur\\Documents\\Projets\\Prairie_Spotify_Gr2\\bddSpotify.db")
+bdd = sqlite3.connect(path + "/bddSpotify.db")
 cur = bdd.cursor()
 
 # CREATION TABLES
