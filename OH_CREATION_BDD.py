@@ -1,10 +1,10 @@
 # SUPPRESSION DE LA BDD POUR EXECUTION A LA CHAINE
 import os
-os.remove("bddSpotify.db")
+os.remove("C:\\Users\\Utilisateur\\Documents\\Projets\\Prairie_Spotify_Gr2\\bddSpotify.db")
 
 # CREATION DE LA BDD
 import sqlite3
-bdd = sqlite3.connect("bddSpotify.db")
+bdd = sqlite3.connect("C:\\Users\\Utilisateur\\Documents\\Projets\\Prairie_Spotify_Gr2\\bddSpotify.db")
 cur = bdd.cursor()
 
 # CREATION TABLES
