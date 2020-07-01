@@ -13,7 +13,7 @@ cur = bdd.cursor()
 
 # Nombre de titres par artiste :
 print ("\n")
-cur.execute('SELECT nom_artiste, COUNT(titre_id) FROM artiste INNER JOIN artiste_titre WHERE artiste.id_artiste = artiste_titre.artiste_id GROUP BY nom_artiste')
+cur.execute('SELECT nom_artiste, COUNT(titre_id) FROM artiste INNER JOIN artiste_titre WHERE artiste.id_artiste = artiste_titre.artiste_id GROUP BY nom_artiste ORDER BY COUNT(titre_id) DESC')
 rtRq1 = cur.fetchall()
 print ("Nombre de titres par artiste :")
 for i in rtRq1 :
@@ -51,12 +51,14 @@ for i in rtRq4 :
 print ("\n")
 cur.execute('SELECT nom_titre, energie, intensité FROM titre;')
 rtRq5 = cur.fetchall()
-print ("Liste energie / intensité")
-data = pd.DataFrame(rtRq5)
-print ("Dimensions de la dataframe : " + str(data.shape))
+
+data = pd.DataFrame(rtRq5) # On convertit la liste rtRq5 généré précédemment en "DataFrame" pour l'exploiter en graphique par la suite
+
+print ("Liste energie / intensité :")
 print (data.head)
-graph = data.plot.scatter(x=1, y=2, c="DarkBlue")
-plt.show (graph)
+
+data.plot.scatter(x=1, y=2, c="DarkBlue") # On génère le nuage de point à partir de la DataFrame déclarée précédemment
+plt.show()
 
 
 
