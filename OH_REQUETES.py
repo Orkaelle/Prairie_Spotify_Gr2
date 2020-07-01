@@ -1,11 +1,12 @@
 ########## !!! ATTENTION : NECESSITE D'AVOIR LANCER LE SCRIPT DE CREATION DE LA BASE AU MOINS UNE FOIS AVANT !!! ##########
 
 ## IMPORT DES LIBRAIRIES
-import os, sys, sqlite3, csv
+import os, sys, sqlite3, pandas as pd, matplotlib.pyplot as plt
+from pylab import *
 
 ## CONNEXION A LA BASE
 path = os.path.dirname(sys.argv[0])
-bdd = sqlite3.connect(path + "/bddSpotify.db")
+bdd = sqlite3.connect(path + "/bddSpotifytest.db")
 cur = bdd.cursor()
 
 ## REQUETES
@@ -38,16 +39,15 @@ print ("\n")
 cur.execute('SELECT nom_titre, energie, intensité FROM titre;')
 rtRq5 = cur.fetchall()
 print ("Liste energie / intensité")
-for i in rtRq5 :
-    print (i)
-print ("\n")
-print ("Calcul energie intensité")
-for i in rtRq5 :
-    print (i[2] * i[1])
-
-## TEST CSV
-# f = open("bddSpotify.csv")
-# fichierCsv = csv.writer(f)
+data = pd.DataFrame(rtRq5)
+print ("Dimensions de la dataframe : " + str(data.shape))
+print (data.head)
+graph = data.plot.scatter(x=1, y=2, c="DarkBlue")
+show (graph)
+# print ("\n")
+# print ("Calcul energie intensité")
+# for i in rtRq5 :
+#     print (i[2] * i[1])
 
 
 ## FERMETURE DE LA BASE
