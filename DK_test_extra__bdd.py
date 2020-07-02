@@ -1,22 +1,27 @@
-#récuper danceability, energy, tempo, id
-from lxml import etree
+#Libraries import
 import urllib.request
 import json
 import sqlite3
 import os
 import sys
+from lxml import etree
 
 
+#Ouverture de la BDD
 path = os.path.dirname(sys.argv[0])
-bdd = sqlite3.connect(path + "/bddSpotify.db")
+bdd = sqlite3.connect(path + "/bddSpotify.db") 
 cur=bdd.cursor()
 
+
+#Récupération des URL contenant "TOP_50"
 list_TOP50_URL = []
 tree = etree.parse(path + "/spotify.xml")
 for url in tree.xpath("/EnumerationResults/Blobs/Blob/Url"):
     if "top_50" in url.text: 
         list_TOP50_URL.append(url.text) 
 print("Récupération URL TOP50 OK")
+
+
 
 for top50 in list_TOP50_URL :
     webURL = urllib.request.urlopen(top50)
@@ -25,7 +30,6 @@ for top50 in list_TOP50_URL :
     dic = json.loads(data.decode(encoding))
     i = 0
     j = 0
-    # print(url)
     if "error" in dic.keys() :
         print("lecture impossible")
     else :
