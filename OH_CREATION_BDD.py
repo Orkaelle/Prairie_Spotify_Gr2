@@ -23,6 +23,7 @@ cur.execute('CREATE TABLE playlist_titre (playlist_id INTEGER, titre_id INTEGER,
 print("Création des tables effectuée.")
 
 
+
 <<<<<<< Updated upstream
 ## SAUVEGARDE DE LA BDD
 bdd.commit()
