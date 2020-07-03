@@ -45,6 +45,7 @@ print ("Nombre de morceaux par intervalle de bpm :")
 for i in rtRq4 :
     print (i)
 
+<<<<<<< Updated upstream
 
 
 # Analyse relation energie / intensité
@@ -64,3 +65,15 @@ plt.show()
 
 ################################## FERMETURE DE LA BASE ###################################
 bdd.close
+=======
+### TEST IMPORTATION CSV EN PYTHON
+import csv
+f = open('bddSpotify.csv')
+fichierCSV = csv.writer(f) 
+
+## FERMETURE DE LA BASE
+bdd.close
+
+
+    
+>>>>>>> Stashed changes
