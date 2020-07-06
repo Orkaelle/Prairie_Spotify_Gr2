@@ -18,7 +18,7 @@ rtRq1 = cur.fetchall()
 print ("Nombre de titres par artiste :")
 for i in rtRq1 :
     print (i)
-
+ 
 
 # Temps moyen des morceaux :
 print ("\n")
@@ -53,13 +53,25 @@ print ("\n")
 cur.execute('SELECT nom_titre, energie, intensité FROM titre;')
 rtRq5 = cur.fetchall()
 
-data = pd.DataFrame(rtRq5) # On convertit la liste rtRq5 généré précédemment en "DataFrame" pour l'exploiter en graphique par la suite
+data_rq5 = pd.DataFrame(rtRq5) # On convertit la liste rtRq5 générée précédemment en "DataFrame" pour l'exploiter en graphique par la suite
 
 print ("Liste energie / intensité :")
-print (data.head)
+print (data_rq5.head)
 
-data.plot.scatter(x=1, y=2, c="DarkBlue") # On génère le nuage de point à partir de la DataFrame déclarée précédemment
+data_rq5.plot.scatter(x=1, y=2, c="DarkBlue") # On génère le nuage de point à partir de la DataFrame déclarée précédemment
 plt.show()
+
+
+# # Prédire la popularité en fonction des caractéristiques d’un morceau (libre choix)
+# print ("\n")
+# cur.execute('SELECT * FROM titre;')
+# rtRq6 = cur.fetchall
+
+# dataSet = pd.DataFrame(rtRq6) # On convertit la liste rtRq6 générée précédemment en "DataFrame" pour l'exploiter en graphique par la suite
+
+# print (dataSet)
+
+
 
 
 
