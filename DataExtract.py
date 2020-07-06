@@ -6,40 +6,38 @@ import sqlite3
 import os
 import sys
 import requests
-
+import constants
 """
 Connect to database
 """
 #dbName = "bddSpotify_v2.db"
-
+db_name = constants.DB_NAME
 base_dir = os.path.dirname(sys.argv[0])
-path = os.path.join(base_dir, dbName)
+path = os.path.join(base_dir, db_name)
+file_name = constants.XML_SPOTIFY_NAME
+xml_path = os.path.join(base_dir, file_name)
 
 
 bdd = sqlite3.connect(path)
 cur=bdd.cursor()
-
 list_TOP50_URL = []
 list_songs_URL = []
-
-
 
 def get_xml_file():
     URL = "https://dlsandboxweu002.blob.core.windows.net/spotify?restype=container&comp=list"
     response = requests.get(URL)
-    fileName = "spotify.xml"
-    with open(fileName, 'wb') as file:
+    with open(file_name, 'wb') as file:
         file.write(response.content)
 
 def get_top50_url_list():
-    tree = etree.parse(path + "/spotify_formated.xml") 
+    tree = etree.parse(xml_path) 
     for url in tree.xpath("/EnumerationResults/Blobs/Blob/Url"):
         if "top_50" in url.text: 
             list_TOP50_URL.append(url.text) 
     print("Récupération URL TOP50 OK")
 
 def get_urls_list():  
-    tree = etree.parse(path + "/spotify_formated.xml")
+    tree = etree.parse(xml_path)
     for url in tree.xpath("/EnumerationResults/Blobs/Blob/Url"):
         if "songs" in url.text and "json" in url.text:
             list_songs_URL.append(url.text)
@@ -62,6 +60,8 @@ def get_playlist_id(playlist_href):
     playlisId = linkSplited[linkSplited.index("playlists") + 1]
 
     return playlisId
+
+get_xml_file()
 
 get_top50_url_list()
 

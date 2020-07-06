@@ -4,10 +4,11 @@
 import os
 import sys
 import sqlite3
+import constants
 
 ## SUPPRESSION DE LA BDD EXISTANTE
 ## dbName = "bddSpotify_v2.db"
-dbName = 
+dbName = constants.DB_NAME
 base_dir = os.path.dirname(sys.argv[0])
 path = os.path.join(base_dir, dbName)
 
