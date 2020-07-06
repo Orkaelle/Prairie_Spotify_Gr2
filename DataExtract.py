@@ -5,13 +5,31 @@ import json
 import sqlite3
 import os
 import sys
+import requests
 
-path = os.path.dirname(sys.argv[0])
-bdd = sqlite3.connect(path + "/bddSpotify_v2.db")
+"""
+Connect to database
+"""
+#dbName = "bddSpotify_v2.db"
+
+base_dir = os.path.dirname(sys.argv[0])
+path = os.path.join(base_dir, dbName)
+
+
+bdd = sqlite3.connect(path)
 cur=bdd.cursor()
 
 list_TOP50_URL = []
 list_songs_URL = []
+
+
+
+def get_xml_file():
+    URL = "https://dlsandboxweu002.blob.core.windows.net/spotify?restype=container&comp=list"
+    response = requests.get(URL)
+    fileName = "spotify.xml"
+    with open(fileName, 'wb') as file:
+        file.write(response.content)
 
 def get_top50_url_list():
     tree = etree.parse(path + "/spotify_formated.xml") 

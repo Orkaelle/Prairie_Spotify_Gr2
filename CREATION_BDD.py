@@ -1,17 +1,22 @@
 ####################### CREATION DE LA BDD ET AJOUT DES DATAS #########################
 
 ## IMPORT DES LIBRAIRIES
-import os, sys, sqlite3
+import os
+import sys
+import sqlite3
 
 ## SUPPRESSION DE LA BDD EXISTANTE
-dbName = "bddSpotify_v2.db"
-path = os.path.dirname(sys.argv[0])
-bdd = sqlite3.connect(path + "/bddSpotify_v2.db")
+## dbName = "bddSpotify_v2.db"
+dbName = 
+base_dir = os.path.dirname(sys.argv[0])
+path = os.path.join(base_dir, dbName)
+
+bdd = sqlite3.connect(path)
 bdd.close()
-os.remove(path + "/bddSpotify_v2.db")
+os.remove(path)
 
 ## CREATION DE LA BDD
-bdd = sqlite3.connect(path + "/bddSpotify_v2.db")
+bdd = sqlite3.connect(path)
 cur = bdd.cursor()
 
 
