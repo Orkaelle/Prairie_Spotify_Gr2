@@ -24,11 +24,6 @@ print("Création des tables effectuée.")
 
 
 
-<<<<<<< Updated upstream
-## SAUVEGARDE DE LA BDD
-bdd.commit()
-print("BDD sauvegardée.")
-=======
 bdd.commit()
 
 # REQUETE
@@ -53,7 +48,6 @@ for i in view :
 # view = cur.fetchall()
 # for i in view :
 #     print (i)
->>>>>>> Stashed changes
 
 
 ## FERMETURE BDD
