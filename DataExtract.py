@@ -138,3 +138,4 @@ for songs in list_songs_URL :
             i += 1
 
 bdd.commit()
+print ("Fin de mise à jour")
