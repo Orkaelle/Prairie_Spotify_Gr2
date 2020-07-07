@@ -1,5 +1,5 @@
 %#template pour nombre de chansons par artiste
-<p>Nombre de chanson par artiste:</p>
+<p>Nombre de chansons par artiste:</p>
 <table border="1">
 %for row in rows:
   <tr>

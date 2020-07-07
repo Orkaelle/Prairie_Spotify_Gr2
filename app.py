@@ -11,7 +11,16 @@ def nombre_album_par_artist():
 
     result = req.get_nbr_chanson_par_artist()
 
-    output = template('front/nbr_artist', rows=result)
+    output = template('front/nbr_artist', rows = result)
+    return output
+
+
+@route('/tps_moyen_morceaux')
+def temps_moyen_des_morceaux():
+
+    result = req.get_tps_moyen_des_morceaux()
+
+    output = template('front/tps_moyen_morceaux', tps_moyen_morceaux = result)
     return output
 
 

@@ -17,11 +17,20 @@ cur = bdd.cursor()
 ########################################### REQUETES ###########################################################
 
 
-def get_nbr_chanson_par_artist():
+def get_nbr_chanson_par_artist():    # Fonction de la requete 1
     cur.execute('SELECT nom_artiste, COUNT(titre_id) FROM artiste INNER JOIN artiste_titre WHERE artiste.id_artiste = artiste_titre.artiste_id GROUP BY nom_artiste ORDER BY COUNT(titre_id) DESC')
     result = cur.fetchall()
 
     return result
+
+
+def get_tps_moyen_des_morceaux():    # Fonction de la requete 2
+    cur.execute('SELECT AVG(durée) FROM titre;')
+    result_ms = cur.fetchall()
+    result = round(result_ms[0][0]/60000,2)
+
+    return result
+
 
 """
 # Nombre de titres par artiste :
