@@ -132,8 +132,8 @@ for songs in list_songs_URL :
         print("lecture impossible")
     else :
         while i < len(dic["audio_features"]):
-            bpmenergintens = [str(dic["audio_features"][i]["tempo"]),str(dic["audio_features"][i]["energy"]),str(dic["audio_features"][i]["loudness"]),str(dic["audio_features"][i]["id"])]
-            cur.execute("""UPDATE titre SET bpm = ?, energie = ?, intensité = ? WHERE id_titre= ?""",bpmenergintens)
+            bpmenergintens = [str(dic["audio_features"][i]["tempo"]),str(dic["audio_features"][i]["energy"]),str(dic["audio_features"][i]["loudness"]),str(dic["audio_features"][i]["danceability"]),str(dic["audio_features"][i]["speechiness"]),str(dic["audio_features"][i]["liveness"]),str(dic["audio_features"][i]["valence"]),str(dic["audio_features"][i]["id"])]
+            cur.execute("""UPDATE titre SET bpm = ?, energie = ?, intensité = ?, danceability = ?, speechiness = ? , liveness = ? , valence = ? WHERE id_titre = ?""",bpmenergintens)
 
             i += 1
 
