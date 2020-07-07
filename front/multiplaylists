@@ -1,0 +1,11 @@
+%#template pour nombre de titres qui sont dans plusieurs playlists
+<p> {{count}} titres figurent dans plusieurs playlists :</p>
+<table border="1">
+%for row in rows:
+  <tr>
+  %for col in row:
+    <td>{{col}}</td>
+  %end
+  </tr>
+%end
+</table>
