@@ -101,8 +101,9 @@ for top50 in list_TOP50_URL :
             idTitre = dic["items"][i]["track"]["id"]
             nameTitre = dic["items"][i]["track"]["name"]
             durationTitre = dic["items"][i]["track"]["duration_ms"]
-            donnees_titre=[idTitre, nameTitre, str(durationTitre)]
-            cur.execute("""INSERT OR IGNORE INTO titre(id_titre, nom_titre, durée) VALUES(?,?,?);""", donnees_titre)
+            popularity = dic["items"][i]["track"]["popularity"]
+            donnees_titre=[idTitre, nameTitre, str(durationTitre), popularity]
+            cur.execute("""INSERT OR IGNORE INTO titre(id_titre, nom_titre, durée, popularity) VALUES(?,?,?,?);""", donnees_titre)
 
             #insert album_titre
             donnees_album_titre = [id_album, idTitre]
