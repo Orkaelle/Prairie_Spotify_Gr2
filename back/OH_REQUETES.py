@@ -31,7 +31,7 @@ def get_tps_moyen_des_morceaux():
     return result
 
 def get_nbr_titres_par_bpm():
-    cur.execute('SELECT COUNT(id_titre), CASE WHEN bpm < 60 THEN "Largo" WHEN bpm < 66 THEN "Larghetto" WHEN bpm < 76 THEN "Adagio" WHEN bpm < 108 THEN "Andante" WHEN bpm < 120 THEN "Moderato" WHEN bpm < 160 THEN "Allegro" WHEN bpm < 200 THEN "Presto" ELSE "Prestissimo" END AS bpm_intervalle FROM titre GROUP BY bpm_intervalle ')
+    cur.execute('SELECT COUNT(id_titre), CASE WHEN bpm < 60 THEN "Largo - [40-60]" WHEN bpm < 66 THEN "Larghetto - [60-66]" WHEN bpm < 76 THEN "Adagio - [66-76]" WHEN bpm < 108 THEN "Andante - [76-108]" WHEN bpm < 120 THEN "Moderato - [108-120]" WHEN bpm < 160 THEN "Allegro - [120-160]" WHEN bpm < 200 THEN "Presto - [160-200]" ELSE "Prestissimo - [+200]" END AS bpm_intervalle FROM titre GROUP BY bpm_intervalle ')
     result = cur.fetchall()
 
     return result
@@ -96,7 +96,7 @@ def get_relation_energie_intensite():
     nom_image = "images/graph.png"
     plt.savefig(nom_image)
 
-    formule = "La droite à pour formule : " + str(round(theta[0][0],4)) + "x + " + str(round(theta[1][0],4)) + ". Le coéfficient R² est de " + str(round(coef_determination(y, prediction),2)) + "."
+    formule = "La droite a pour formule : " + str(round(theta[0][0],4)) + "x + " + str(round(theta[1][0],4)) + ". Le coefficient R² est de " + str(round(coef_determination(y, prediction),2)) + "."
 
     return formule
     
