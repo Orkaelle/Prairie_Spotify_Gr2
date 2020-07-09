@@ -1,14 +1,21 @@
+import json
+import os, sys
 from bottle import Bottle, run, request, template, debug, static_file
 
 import os
 import sys
 import back.OH_REQUETES as req
+import back.DataExtract as data_extract
+import back.CREATION_BDD as bdd
+import sqlite3
+import back.constants
 from yolo.yolo import *
 from back.bdd_requests import * 
 
 dirname = os.path.dirname(sys.argv[0])
 
 app = Bottle()
+
 debug(True)
 
 @app.route('/static/<filename:re:.*\.css>')
@@ -89,6 +96,14 @@ def relation_energie_intensite():
     output = template('energie_intensite', resultat = result)
     return output
 
+@app.get('/load_data')
+def load_data():
+    
+    db_creation = bdd.create_database()
+    extract = data_extract.extract_data()
+    message = "%s and %s" % (db_creation, extract)
+    
+    return template('index', data = message)
 #local resources
 @app.route('/path/to/cover')
 def serve_pictures():
