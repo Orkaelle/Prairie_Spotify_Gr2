@@ -67,7 +67,7 @@ SQL_GET_TRACK_CHARACTERISTICS = """
 The file path of database file
 """
 path = os.path.dirname(sys.argv[0])
-conn = sqlite3.connect(path + "/back/bddSpotify.db")
+
 
 class XgBoost:
     """
@@ -97,6 +97,8 @@ class XgBoost:
 
         return min/max calculated prediction (isHit?)
         """
+        conn = sqlite3.connect(path + "/back/bddSpotify.db")
+        
         train = pd.read_sql_query(SQL_GET_ALL_TRACKS_CHARACTERISTICS.format(playlist), conn)
 
         Y = copy.deepcopy(train.isHit)
@@ -130,7 +132,8 @@ class XgBoost:
         print("Probabily of being a hit song : min {:.0f}% / max {:.0f}% ".format(prediction.min(), prediction.max()*100))
 
         return int(prediction.min()*100), int(prediction.max()*100)
-  
+
+        conn.close()
 
 
 
