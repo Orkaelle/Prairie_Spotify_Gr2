@@ -20,8 +20,8 @@
         <table class="table table-striped table-sm">
           <thead>
             <tr>
-              <th>Artiste</th>
-              <th>Nombre chansons</th>
+              <th>Nombre de titres</th>
+              <th>Intervalle de BPM</th>
             </tr>
           </thead>
           <tbody>

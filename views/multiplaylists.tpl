@@ -20,8 +20,8 @@
         <table class="table table-striped table-sm">
           <thead>
             <tr>
-              <th>Artiste</th>
-              <th>Nombre chansons</th>
+              <th>Titre</th>
+              <th>Nombre de playlists</th>
             </tr>
           </thead>
           <tbody>

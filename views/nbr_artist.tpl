@@ -13,14 +13,14 @@
 	% include('nav.tpl', title='Navigation')
 
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-	<h2>Nombre de chanson par artiste:</h2>
+	<h2>Nombre de titres par artiste :</h2>
 	  
       <div class="table-responsive">
         <table class="table table-striped table-sm">
           <thead>
             <tr>
-              <th>Artiste</th>
-              <th>Nombre chansons</th>
+              <th>Artistes</th>
+              <th>Nombre de titres</th>
             </tr>
           </thead>
           <tbody>

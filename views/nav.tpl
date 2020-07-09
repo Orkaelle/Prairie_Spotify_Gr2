@@ -10,13 +10,13 @@
           <li class="nav-item">
             <a class="nav-link" href="/nbr_artist">
               <span data-feather="file"></span>
-              Nombre chansons par artiste
+              Nombre de titres par artiste
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="shopping-cart"></span>
-              Temps moyen des morceaux
+            <a class="nav-link" href="/tps_moyen_morceaux">
+              <span data-feather="users"></span>
+              Durée moyenne des morceaux
             </a>
           </li>
           <li class="nav-item">
@@ -32,7 +32,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="/energie_intensite">
               <span data-feather="layers"></span>
               Analyser et afficher la relation entre l’énergie et l’intensité
             </a>

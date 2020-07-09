@@ -1,7 +1,8 @@
 from bottle import Bottle, run, \
      template, debug, static_file
 
-import os, sys
+import os
+import sys
 import back.OH_REQUETES as req
 
 dirname = os.path.dirname(sys.argv[0])
@@ -16,6 +17,10 @@ def send_css(filename):
 @app.route('/static/<filename:re:.*\.js>')
 def send_js(filename):
     return static_file(filename, root=dirname+'/static/asset/js')
+
+@app.route('/images/<filename:re:.*\.png>')
+def images(filename):
+    return static_file(filename, root=dirname+'/images')
 
 """
 
@@ -35,6 +40,17 @@ def nombre_album_par_artist():
     result = req.get_nbr_chanson_par_artist()
 
     output = template('nbr_artist', rows=result)
+    return output
+
+"""
+Durée moyenne des morceaux
+"""
+@app.route('/tps_moyen_morceaux')
+def tps_moyen_morceaux():
+
+    result = req.get_tps_moyen_des_morceaux()
+
+    output = template('tps_moyen_morceaux', tps=result)
     return output
 
 """
@@ -69,7 +85,8 @@ def relation_energie_intensite():
 
     result = req.get_relation_energie_intensite()
 
-    output = template('energie_intensite', chemin = result)
+    output = template('energie_intensite', resultat = result)
+    return output
 
 
 """
