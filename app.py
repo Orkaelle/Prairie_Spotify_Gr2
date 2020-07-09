@@ -5,23 +5,26 @@ import sys
 import back.OH_REQUETES as req
 from yolo.yolo import *
 from back.bdd_requests import * 
+from back.xgbPrediction import XgBoost
 
-dirname = os.path.dirname(sys.argv[0])
+DIRNAME = os.path.dirname(sys.argv[0])
 
 app = Bottle()
+xgbModule = XgBoost()
+
 debug(True)
 
 @app.route('/static/<filename:re:.*\.css>')
 def send_css(filename):
-    return static_file(filename, root=dirname+'/static/asset/css')
+    return static_file(filename, root=DIRNAME+'/static/asset/css')
 
 @app.route('/static/<filename:re:.*\.js>')
 def send_js(filename):
-    return static_file(filename, root=dirname+'/static/asset/js')
+    return static_file(filename, root=DIRNAME+'/static/asset/js')
 
 @app.route('/images/<filename:re:.*\.png>')
 def images(filename):
-    return static_file(filename, root=dirname+'/images')
+    return static_file(filename, root=DIRNAME+'/images')
 
 """
 
@@ -77,13 +80,9 @@ def nombre_de_titres_multiplaylists():
     output = template('multiplaylists', count = nbtitres, rows = result)
     return output
 
-
-"""
-Analyser et afficher la relation entre l’énergie et l’intensité
-"""
 @app.route('/energie_intensite')
 def relation_energie_intensite():
-
+    """Analyser et afficher la relation entre l’énergie et l’intensité """
     result = req.get_relation_energie_intensite()
 
     output = template('energie_intensite', resultat = result)
@@ -92,6 +91,7 @@ def relation_energie_intensite():
 #local resources
 @app.route('/path/to/cover')
 def serve_pictures():
+    """ return cover transformed by cover analysis's feature """
     if not os.path.exists(TEMPORARY_FILE_OUT):
         return
     filename = os.path.basename(TEMPORARY_FILE_OUT)
@@ -99,6 +99,7 @@ def serve_pictures():
 
 @app.route('/cover', method='GET')
 def cover_descriptor():
+    """  check from a cover the list of items/objects inside """
     cleanup_files()
     cover =  request.query.album_cover
     albums = get_albums(cover)
@@ -108,6 +109,30 @@ def cover_descriptor():
 
     return template("cover_ia", albums=albums, identifications=identifications, toto = cover)
 
+@app.route('/popularity_xgb', method='GET')
+def popularity():
+    """  predict popularity of a song based on songs in a playlist """
+    song = request.query.song
+    playlist = request.query.playlist
+
+    playlists = get_playlists(playlist)
+    
+    error = ''
+    min= 0
+    max= 0
+    if song != '' and playlist != ''  :
+        try:
+            min, max = xgbModule.get_prediction(song, playlist)
+        except Exception as exception:
+            error = exception.args[0]
+            print('The xgbModule.get_prediction failed')
+
+    return template('popularity_xgboost', 
+    playlists = playlists, 
+    errorMessage = error, 
+    prediction_min= min,  
+    prediction_max= max,  
+    song = song)
 
 
 """

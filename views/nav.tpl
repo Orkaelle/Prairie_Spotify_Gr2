@@ -44,6 +44,12 @@
             </a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="/popularity_xgb">
+              <span data-feather="thumbs-up"></span>
+              Prédire la popularité d'un morceau - XgBoost
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="/cover">
               <span data-feather="image"></span>
               Extraire les informations d'une pochette

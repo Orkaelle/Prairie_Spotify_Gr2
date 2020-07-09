@@ -15,7 +15,11 @@ GET_ALBUMS = """SELECT name_album,
                 FROM album
                  ORDER BY name_album ASC"""
 
-
+SQL_GET_PLAYLISTS = """SELECT id_playlist,
+                        nom_playlist,
+                        CASE WHEN id_playlist = '{}' THEN 1 ELSE 0 END as selected
+                        FROM playlist;
+                    """
 
 
 ## CONNEXION A LA BASE
@@ -27,4 +31,13 @@ def get_albums(cover):
     cur.execute(GET_ALBUMS.format(cover))
     result = cur.fetchall()
 
+    return result
+
+def get_playlists(selected):
+    """
+    Get the content of PLAYLIST table
+    Return dictionnary
+    """
+    cur.execute(SQL_GET_PLAYLISTS.format(selected))
+    result = cur.fetchall()
     return result
