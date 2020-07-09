@@ -5,8 +5,6 @@
   </head>
   <body>
 	
-	% include('top_nav.tpl', title='Top navigation')
-
 <div class="container-fluid">
   <div class="row">
     

@@ -1,9 +1,10 @@
-from bottle import Bottle, run, \
-     template, debug, static_file
+from bottle import Bottle, run, request, template, debug, static_file
 
 import os
 import sys
 import back.OH_REQUETES as req
+from yolo.yolo import *
+from back.bdd_requests import * 
 
 dirname = os.path.dirname(sys.argv[0])
 
@@ -87,6 +88,26 @@ def relation_energie_intensite():
 
     output = template('energie_intensite', resultat = result)
     return output
+
+#local resources
+@app.route('/path/to/cover')
+def serve_pictures():
+    if not os.path.exists(TEMPORARY_FILE_OUT):
+        return
+    filename = os.path.basename(TEMPORARY_FILE_OUT)
+    return static_file(filename, root=TEMPORARY_FILE_OUT.replace(filename,''))
+
+@app.route('/cover', method='GET')
+def cover_descriptor():
+    cleanup_files()
+    cover =  request.query.album_cover
+    albums = get_albums(cover)
+    identifications = []
+    if cover != '' :
+        identifications = cover_analysis(cover)
+
+    return template("cover_ia", albums=albums, identifications=identifications, toto = cover)
+
 
 
 """
