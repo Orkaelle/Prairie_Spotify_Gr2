@@ -22,12 +22,15 @@ SQL_GET_PLAYLISTS = """SELECT id_playlist,
                     """
 
 
-## CONNEXION A LA BASE
-path = os.path.dirname(sys.argv[0])
-bdd = sqlite3.connect(path + "/back/bddSpotify.db")
-cur = bdd.cursor()
+
 
 def get_albums(cover):
+
+    ## CONNEXION A LA BASE
+    path = os.path.dirname(sys.argv[0])
+    bdd = sqlite3.connect(path + "/back/bddSpotify.db")
+    cur = bdd.cursor()
+
     cur.execute(GET_ALBUMS.format(cover))
     result = cur.fetchall()
 

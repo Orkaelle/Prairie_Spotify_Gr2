@@ -1,8 +1,14 @@
+import json
+import os, sys
 from bottle import Bottle, run, request, template, debug, static_file
 
 import os
 import sys
 import back.OH_REQUETES as req
+import back.DataExtract as data_extract
+import back.CREATION_BDD as db
+import sqlite3
+import back.constants
 from yolo.yolo import *
 from back.bdd_requests import * 
 from back.xgbPrediction import XgBoost
@@ -88,6 +94,14 @@ def relation_energie_intensite():
     output = template('energie_intensite', resultat = result)
     return output
 
+@app.get('/load_data')
+def load_data():
+    
+    db_creation = db.create_database()
+    extract = data_extract.extract_data()
+    message = "%s and %s" % (db_creation, extract)
+    
+    return template('index', data = message)
 #local resources
 @app.route('/path/to/cover')
 def serve_pictures():

@@ -9,21 +9,33 @@ import matplotlib.pyplot as plt
 from pylab import *
 import numpy as np
 
-## CONNEXION A LA BASE
-path = os.path.dirname(sys.argv[0])
-bdd = sqlite3.connect(path + "/back/bddSpotify.db")
-cur = bdd.cursor()
+
 
 ########################################### REQUETES ###########################################################
+cur = None
+bdd = None
 
+def connect_db():
+    ## CONNEXION A LA BASE
+    path = os.path.dirname(sys.argv[0])
+    bdd = sqlite3.connect(path + "/back/bddSpotify.db")
+    
+    return bdd
 
 def get_nbr_chanson_par_artist():
+    
+    bdd = connect_db()
+    cur = bdd.cursor()
     cur.execute('SELECT nom_artiste, COUNT(titre_id) FROM artiste INNER JOIN artiste_titre WHERE artiste.id_artiste = artiste_titre.artiste_id GROUP BY nom_artiste ORDER BY COUNT(titre_id) DESC')
     result = cur.fetchall()
+
+    bdd.close()
 
     return result
 
 def get_tps_moyen_des_morceaux():
+    bdd = connect_db()
+    cur = bdd.cursor()
     cur.execute('SELECT AVG(durée) FROM titre;')
     result_ms = cur.fetchall()
 
@@ -31,18 +43,24 @@ def get_tps_moyen_des_morceaux():
     return result
 
 def get_nbr_titres_par_bpm():
-    cur.execute('SELECT COUNT(id_titre), CASE WHEN bpm < 60 THEN "Largo - [40-60]" WHEN bpm < 66 THEN "Larghetto - [60-66]" WHEN bpm < 76 THEN "Adagio - [66-76]" WHEN bpm < 108 THEN "Andante - [76-108]" WHEN bpm < 120 THEN "Moderato - [108-120]" WHEN bpm < 160 THEN "Allegro - [120-160]" WHEN bpm < 200 THEN "Presto - [160-200]" ELSE "Prestissimo - [+200]" END AS bpm_intervalle FROM titre GROUP BY bpm_intervalle ')
+    bdd = connect_db()
+    cur = bdd.cursor()
+    cur.execute('SELECT COUNT(id_titre), CASE WHEN bpm < 60 THEN "Largo" WHEN bpm < 66 THEN "Larghetto" WHEN bpm < 76 THEN "Adagio" WHEN bpm < 108 THEN "Andante" WHEN bpm < 120 THEN "Moderato" WHEN bpm < 160 THEN "Allegro" WHEN bpm < 200 THEN "Presto" ELSE "Prestissimo" END AS bpm_intervalle FROM titre GROUP BY bpm_intervalle ')
     result = cur.fetchall()
 
     return result
     
 def get_nbr_titres_multiplaylists():
+    bdd = connect_db()
+    cur = bdd.cursor()
     cur.execute('SELECT nom_titre, COUNT(playlist_id) FROM titre INNER JOIN playlist_titre WHERE titre.id_titre = playlist_titre.titre_id GROUP BY nom_titre HAVING COUNT(playlist_id) > 1;')
     result = cur.fetchall()
 
     return result
 
 def get_relation_energie_intensite():
+    bdd = connect_db()
+    cur = bdd.cursor()   
     cur.execute('SELECT energie, intensité FROM titre;')
     rtRq5 = cur.fetchall()
 
@@ -103,4 +121,3 @@ def get_relation_energie_intensite():
 
 
 ################################## FERMETURE DE LA BASE ###################################
-bdd.close
