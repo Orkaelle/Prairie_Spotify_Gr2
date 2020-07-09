@@ -42,7 +42,11 @@
                     </td>
                     </tr>
                     <tr>
-                    <td>
+                    <td colspan="3">
+                        <span style="color:red;font-size:2em">{{errorMessage}}</span>
+                    </td>
+                    <tr>
+                    <td colspan="3">
                         <span>prediction calculated between {{prediction_min}}% and {{prediction_max}}%</span>
                     </td>
                     </tr>
