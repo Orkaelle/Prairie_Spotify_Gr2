@@ -18,8 +18,8 @@ def create_database():
             os.remove(path)
 
         ## CREATION DE LA BDD
-        bdd = sqlite3.connect(path)
-        cur = bdd.cursor()
+        db = sqlite3.connect(path)
+        cur = db.cursor()
 
         ## CREATION TABLES
         cur.execute('CREATE TABLE playlist(id_playlist PRIMARY KEY, nom_playlist TEXT);')
@@ -32,11 +32,11 @@ def create_database():
         print("Création des tables effectuée.")
 
         ## SAUVEGARDE DE LA BDD
-        bdd.commit()
+        db.commit()
         return "Database created"
     except:
         return "Extract data error: %s" % sys.exc_info()[0]
 
     finally:
         ## FERMETURE BDD
-        bdd.close()
+        db.close()

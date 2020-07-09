@@ -6,7 +6,7 @@ import os
 import sys
 import back.OH_REQUETES as req
 import back.DataExtract as data_extract
-import back.CREATION_BDD as bdd
+import back.CREATION_BDD as db
 import sqlite3
 import back.constants
 from yolo.yolo import *
@@ -99,7 +99,7 @@ def relation_energie_intensite():
 @app.get('/load_data')
 def load_data():
     
-    db_creation = bdd.create_database()
+    db_creation = db.create_database()
     extract = data_extract.extract_data()
     message = "%s and %s" % (db_creation, extract)
     
