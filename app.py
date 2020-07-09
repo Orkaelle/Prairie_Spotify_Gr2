@@ -12,6 +12,7 @@ import back.constants
 from yolo.yolo import *
 from back.bdd_requests import * 
 from back.xgbPrediction import XgBoost
+import back.request6_farida as req6
 
 DIRNAME = os.path.dirname(sys.argv[0])
 
@@ -102,6 +103,7 @@ def load_data():
     message = "%s and %s" % (db_creation, extract)
     
     return template('index', data = message)
+
 #local resources
 @app.route('/path/to/cover')
 def serve_pictures():
@@ -123,8 +125,19 @@ def cover_descriptor():
 
     return template("cover_ia", albums=albums, identifications=identifications, toto = cover)
 
+@app.route('/get/prediction/picture/<graph>')
+def serve_data(graph):
+
+	return static_file(graph +'.png', root=os.path.dirname(sys.argv[0])+'/images')
+	
+@app.route('/popularity_farida', method='GET')
+def popularity_farida():
+    graphs, predictions, error = req6.compute_prediction()
+    return template("popularity_farida", graphs = graphs, predictions = predictions, error = error)
+
+
 @app.route('/popularity_xgb', method='GET')
-def popularity():
+def popularity_xgb():
     """  predict popularity of a song based on songs in a playlist """
     song = request.query.song
     playlist = request.query.playlist

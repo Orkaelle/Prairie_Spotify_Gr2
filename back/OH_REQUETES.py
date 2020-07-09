@@ -113,6 +113,7 @@ def get_relation_energie_intensite():
     plt.ylabel('Intensité')
     nom_image = "images/graph.png"
     plt.savefig(nom_image)
+    plt.close()
 
     formule = "La droite a pour formule : " + str(round(theta[0][0],4)) + "x + " + str(round(theta[1][0],4)) + ". Le coefficient R² est de " + str(round(coef_determination(y, prediction),2)) + "."
 

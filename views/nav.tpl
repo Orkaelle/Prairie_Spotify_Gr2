@@ -38,9 +38,9 @@
             </a>
           </li>
 		  <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="thumbs-up"></span>
-              Prédire la popularité en fonction des caractéristiques d’un morceau
+            <a class="nav-link" href="popularity_farida">
+              <span data-feather="bar-chart-2"></span>
+              Prédire la popularité en fonction des caractéristiques d’un morceau - farida
             </a>
           </li>
           <li class="nav-item">
