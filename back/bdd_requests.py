@@ -41,6 +41,10 @@ def get_playlists(selected):
     Get the content of PLAYLIST table
     Return dictionnary
     """
+    path = os.path.dirname(sys.argv[0])
+    bdd = sqlite3.connect(path + "/back/bddSpotify.db")
+    cur = bdd.cursor()
+    
     cur.execute(SQL_GET_PLAYLISTS.format(selected))
     result = cur.fetchall()
     return result
