@@ -4,7 +4,8 @@
     % include('head.tpl', title='Head')
   </head>
   <body>
-  
+  % include('top_nav.tpl', title='Top navigation')
+
 <div class="container-fluid">
     <form action="/cover" method="get">
         <div class="row">
