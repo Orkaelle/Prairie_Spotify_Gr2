@@ -106,7 +106,7 @@ def get_relation_energie_intensite():
         v = ((y - y.mean())**2).sum()
         return 1 - u/v
 
-
+    plt.close()
     plt.scatter(x, y)
     plt.plot(x, prediction, c='r')
     plt.xlabel('Energie')

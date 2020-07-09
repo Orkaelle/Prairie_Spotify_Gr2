@@ -38,9 +38,7 @@ def images(filename):
 """
 @app.route('/')
 def index():
-    data = {"developer_name":"Power Rangers",
-            "developer_organization":"Simplon"}
-    return template('index', data = data)
+    return template('index', developer_name = "Power Rangers", developer_organization = "Simplon")
 
 """
 Nombre de chansons par artiste
@@ -104,7 +102,6 @@ def load_data():
     
     return template('index', data = message)
 
-#local resources
 @app.route('/path/to/cover')
 def serve_pictures():
     """ return cover transformed by cover analysis's feature """
